@@ -14,15 +14,6 @@ import base64
 import gdown
 import textwrap
 
-# ---------- MONKEY-PATCH st.markdown untuk auto-dedent ----------
-_original_markdown = st.markdown
-
-def _patched_markdown(body, unsafe_allow_html=False, **kwargs):
-    if unsafe_allow_html and isinstance(body, str):
-        body = textwrap.dedent(body)
-    return _original_markdown(body, unsafe_allow_html=unsafe_allow_html, **kwargs)
-
-st.markdown = _patched_markdown
 # --------------------------------------------------------------
 
 st.set_page_config(
