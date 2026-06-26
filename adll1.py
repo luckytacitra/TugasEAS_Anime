@@ -242,6 +242,15 @@ st.markdown(f"""
     border-color: {card_border} !important;
     color: {text_primary} !important;
 }}
+
+/* TAMBAHAN INI */
+.stApp, .stApp p, .stApp div, .stApp span, .stApp label,
+.stApp .stMarkdown, .stApp [data-testid="stText"] {{
+    color: {text_primary} !important;
+}}
+[data-testid="stSidebar"] * {{
+    color: {text_primary} !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
