@@ -255,8 +255,9 @@ st.markdown(f"""
 .hero-title, .hero-subtitle, .hero-desc, .hero-welcome {{
     color: white !important;
 }}
-.hero-subtitle, .page-subtitle, .kpi-label, .sidebar-footer, .sidebar-quote, .metric-title, .hero-desc, .topnav-userrole {{
+.page-subtitle, .kpi-label, .sidebar-footer, .sidebar-quote, .metric-title, .topnav-userrole {{
     color: {text_secondary} !important;
+}}
 }}
 .topnav-user {{
     background: rgba(255,255,255,0.08) !important;
