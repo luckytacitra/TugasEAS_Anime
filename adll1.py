@@ -397,8 +397,15 @@ def show_banner(title, subtitle, description="", welcome=None, small=False):
         <div class="hero-container" style="height:{height}px; background:{fallback_bg}; display:flex; align-items:center; padding-left:48px;">
             <div>
                 {welcome_html}
-                <div class="hero-title" style="font-size:{title_size};">{title}</div>
-                <div class="hero-subtitle">{subtitle}</div>
+                <div class="hero-title"
+     style="font-size:{title_size}; color:#ffffff !important; text-shadow:0 2px 8px rgba(0,0,0,.8);">
+    {title}
+</div>
+
+<div class="hero-subtitle"
+     style="color:#f1f5f9 !important; text-shadow:0 1px 6px rgba(0,0,0,.8);">
+    {subtitle}
+</div>
                 {desc_html}
             </div>
         </div>
