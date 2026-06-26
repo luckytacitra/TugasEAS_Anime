@@ -111,6 +111,11 @@ for ext in ["jpg", "jpeg", "png", "webp"]:
 st.write("Current directory:", os.getcwd())
 st.write("File ditemukan:", os.path.exists("assets/anime_bg.jpg"))
 st.write("Panjang BG_IMAGE:", len(BG_IMAGE))
+st.write(BG_IMAGE)
+import os
+
+st.write("Ukuran file:", os.path.getsize("assets/anime_bg.jpg"))
+
 
 SIDEBAR_IMAGE = ""
 for ext in ["jpg", "jpeg", "png", "webp"]:
