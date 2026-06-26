@@ -547,9 +547,6 @@ if page == "Overview":
 
 # ---- PAGE ANALYTICS ----
 elif page == "Analytics":
-    st.write(f"DEBUG BG_IMAGE length: {len(BG_IMAGE)}")  # ← tambah ini
-    show_banner("Analytics", "Discover meaningful insights from anime data", small=True)
-elif page == "Analytics":
     show_banner("Analytics", "Discover meaningful insights from anime data", small=True)
 
     total_anime = len(df_anime)
