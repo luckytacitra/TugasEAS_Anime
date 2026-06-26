@@ -348,29 +348,32 @@ def show_banner(title, subtitle, description="", welcome=None, small=False):
     desc_html = f'<div class="hero-desc">{description}</div>' if description else ""
     height = 130 if small else 280
     title_size = "30px" if small else "42px"
+
     overlay_bg = (
         "linear-gradient(100deg, rgba(10,10,20,0.55) 0%, rgba(10,10,20,0.3) 50%, rgba(10,10,20,0.1) 100%)"
         if small else
         "linear-gradient(100deg, rgba(10,10,20,0.78) 0%, rgba(10,10,20,0.45) 45%, rgba(10,10,20,0.15) 100%)"
     )
+
     fallback_bg = "linear-gradient(120deg,#1e1b4b,#4c1d95,#831843)"
 
     if BG_IMAGE:
 
-    html = f"""
-    <div class="hero-container" style="height:{height}px;">
-        <img src="data:image/jpeg;base64,{BG_IMAGE}" style="height:{height}px;">
-        <div class="hero-overlay" style="background:{overlay_bg};">
-            {welcome_html}
-            <div class="hero-title" style="font-size:{title_size};">{title}</div>
-            <div class="hero-subtitle">{subtitle}</div>
-            {desc_html}
+        html = f"""
+        <div class="hero-container" style="height:{height}px;">
+            <img src="data:image/jpeg;base64,{BG_IMAGE}" style="height:{height}px;">
+            <div class="hero-overlay" style="background:{overlay_bg};">
+                {welcome_html}
+                <div class="hero-title" style="font-size:{title_size};">{title}</div>
+                <div class="hero-subtitle">{subtitle}</div>
+                {desc_html}
+            </div>
         </div>
-    </div>
-    """
+        """
 
-    st.code(html[:1000])      # <-- TAMBAHKAN BARIS INI
-    st.markdown(html, unsafe_allow_html=True)
+        st.code(html[:1000])
+        st.markdown(html, unsafe_allow_html=True)
+
     else:
         st.markdown(f"""
         <div class="hero-container" style="height:{height}px; background:{fallback_bg}; display:flex; align-items:center; padding-left:48px;">
