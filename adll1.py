@@ -553,8 +553,8 @@ elif page == "Analytics":
     show_banner("Analytics", "Discover meaningful insights from anime data", small=True)
 
     total_anime = len(df_anime)
-    avg_score = round(df_anime["Score"].mean(), 2)
-    total_members = int(df_anime["Members"].fillna(0).sum())
+    avg_score = round(pd.to_numeric(df_anime["Score"], errors="coerce").mean(), 2)
+    total_members = int(pd.to_numeric(df_anime["Members"], errors="coerce").fillna(0).sum())
     total_reviews = len(df_score)
     total_genres = df_anime["Genres"].dropna().str.split(", ").explode().nunique()
 
