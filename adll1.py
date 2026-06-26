@@ -249,8 +249,11 @@ st.markdown(f"""
 [data-testid="stSidebar"] {{ background: {bg_sidebar} !important; border-right: 1px solid rgba(0,0,0,0.05) !important; }}
 .glass-card {{ background: {card_bg} !important; backdrop-filter: blur(10px) !important; border-color: {card_border} !important; }}
 .kpi-card {{ background: {kpi_bg} !important; border-color: {card_border} !important; }}
-.section-title, .page-title, .hero-title, .poster-title, .kpi-value, .topnav-username, .sidebar-title {{
+.section-title, .page-title, .poster-title, .kpi-value, .topnav-username, .sidebar-title {{
     color: {text_primary} !important;
+}}
+.hero-title, .hero-subtitle, .hero-desc, .hero-welcome {{
+    color: white !important;
 }}
 .hero-subtitle, .page-subtitle, .kpi-label, .sidebar-footer, .sidebar-quote, .metric-title, .hero-desc, .topnav-userrole {{
     color: {text_secondary} !important;
