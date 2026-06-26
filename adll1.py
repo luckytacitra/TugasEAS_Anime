@@ -252,8 +252,18 @@ st.markdown(f"""
 .section-title, .page-title, .poster-title, .kpi-value, .topnav-username, .sidebar-title {{
     color: {text_primary} !important;
 }}
-.hero-title, .hero-subtitle, .hero-desc, .hero-welcome {{
+.hero-container .hero-title,
+.hero-container .hero-subtitle, 
+.hero-container .hero-desc,
+.hero-container .hero-welcome,
+.hero-overlay .hero-title,
+.hero-overlay .hero-subtitle,
+.hero-overlay .hero-desc,
+.hero-overlay .hero-welcome,
+div.hero-title, div.hero-subtitle, div.hero-desc, div.hero-welcome {{
     color: white !important;
+    -webkit-text-fill-color: white !important;
+}}
 }}
 .page-subtitle, .kpi-label, .sidebar-footer, .sidebar-quote, .metric-title, .topnav-userrole {{
     color: {text_secondary} !important;
