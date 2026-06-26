@@ -1,0 +1,9 @@
+streamlit
+pandas
+numpy
+plotly
+wordcloud
+matplotlib
+scikit-learn
+gdown
+requests
