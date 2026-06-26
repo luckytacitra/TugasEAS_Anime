@@ -356,8 +356,7 @@ def show_banner(title, subtitle, description="", welcome=None, small=False):
     fallback_bg = "linear-gradient(120deg,#1e1b4b,#4c1d95,#831843)"
 
     if BG_IMAGE:
-        st.markdown(
-        f"""
+         html = f"""
         <div class="hero-container" style="height:{height}px;">
             <img src="data:image/jpeg;base64,{BG_IMAGE}" style="height:{height}px;">
             <div class="hero-overlay" style="background:{overlay_bg};">
@@ -367,9 +366,10 @@ def show_banner(title, subtitle, description="", welcome=None, small=False):
                 {desc_html}
             </div>
         </div>
-        """,
-        unsafe_allow_html=True
-        )
+        """
+
+        st.code(html[:1000])      # <-- TAMBAHKAN BARIS INI
+        st.markdown(html, unsafe_allow_html=True)
     else:
         st.markdown(f"""
         <div class="hero-container" style="height:{height}px; background:{fallback_bg}; display:flex; align-items:center; padding-left:48px;">
