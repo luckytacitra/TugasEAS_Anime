@@ -183,10 +183,32 @@ header[data-testid="stHeader"] { background: transparent; }
     background: linear-gradient(100deg, rgba(10,10,20,0.78) 0%, rgba(10,10,20,0.45) 45%, rgba(10,10,20,0.15) 100%);
     display:flex; flex-direction:column; justify-content:center; padding-left:48px;
 }
-.hero-welcome { color:#f472b6; font-weight:600; font-size:15px; margin-bottom:6px; }
-.hero-title { font-size:42px; font-weight:800; color:white; line-height:1.1; }
-.hero-subtitle { color:#e2e8f0; font-size:17px; margin-top:6px; }
-.hero-desc { color:#cbd5e1; font-size:13.5px; margin-top:10px; max-width:480px; }
+.hero-title {
+    font-size:42px;
+    font-weight:800;
+    color:white !important;
+    line-height:1.1;
+}
+
+.hero-subtitle {
+    color:#e2e8f0 !important;
+    font-size:17px;
+    margin-top:6px;
+}
+
+.hero-welcome {
+    color:#f472b6 !important;
+    font-weight:600;
+    font-size:15px;
+    margin-bottom:6px;
+}
+
+.hero-desc {
+    color:#cbd5e1 !important;
+    font-size:13.5px;
+    margin-top:10px;
+    max-width:480px;
+}
 
 .poster-card { background: rgba(255,255,255,0.05); border-radius:16px; padding:8px; transition:0.3s; position:relative; }
 .poster-card:hover { transform: translateY(-5px); }
