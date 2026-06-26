@@ -370,8 +370,6 @@ def show_banner(title, subtitle, description="", welcome=None, small=False):
             </div>
         </div>
         """
-
-        st.code(html[:1000])
         st.markdown(html, unsafe_allow_html=True)
 
     else:
