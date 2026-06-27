@@ -32,11 +32,11 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = True
 
 PAGES = ["Overview", "Analytics", "Anime Explorer", "User Analytics",
-         "Recommendations", "AI Insights", "Favorites", "Settings"]
+         "Recommendations", "AI Insights", "Favorites", "User Guide", "Settings"]
 PAGE_ICONS = {
     "Overview": "🏠", "Analytics": "📊", "Anime Explorer": "🌐",
     "User Analytics": "👥", "Recommendations": "🎯", "AI Insights": "🧠",
-    "Favorites": "❤️", "Settings": "⚙️"
+    "Favorites": "❤️", "User Guide": "📖", "Settings": "⚙️"
 }
 
 # ===== HELPER =====
@@ -854,6 +854,7 @@ elif page == "Anime Explorer":
             """, unsafe_allow_html=True)
             fav_key = f"fav_explorer_{row.get('anime_id', idx)}"
             is_fav = row.get("anime_id") in st.session_state.favorites
+            st.markdown('<style>[data-testid="stButton"] button { color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; }</style>', unsafe_allow_html=True)
             if st.button("💔 Remove Favorite" if is_fav else "🤍 Add to Favorites", key=fav_key, use_container_width=True):
                 aid = row.get("anime_id")
                 if aid in st.session_state.favorites:
@@ -1169,6 +1170,148 @@ elif page == "Favorites":
                     st.markdown('</div>', unsafe_allow_html=True)
 
 # ---- PAGE SETTINGS ----
+elif page == "User Guide":
+    show_banner("User Guide 📖", "Panduan lengkap penggunaan Anime Insight AI", small=True)
+
+    st.markdown('''
+    <style>
+    .guide-card {
+        background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(236,72,153,0.05));
+        border: 1px solid rgba(124,58,237,0.2);
+        border-radius: 16px;
+        padding: 24px 28px;
+        margin-bottom: 18px;
+    }
+    .guide-title {
+        font-size: 18px; font-weight: 700; margin-bottom: 10px;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .guide-item {
+        font-size: 14px; line-height: 1.8;
+        color: #94a3b8; padding-left: 4px;
+    }
+    .guide-item b { color: #c4b5fd; }
+    </style>
+    ''', unsafe_allow_html=True)
+
+    # ===== DESKRIPSI DASHBOARD =====
+    st.markdown('<div class="section-title">🎌 Tentang Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Apa itu Anime Insight AI dan apa saja yang bisa kamu lakukan di sini.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="guide-card">
+        <p class="guide-item">
+            <b>Anime Insight AI</b> adalah dashboard analitik interaktif berbasis web yang dibangun dengan Streamlit (Python).
+            Dashboard ini mengolah, memvisualisasikan, dan menganalisis data anime secara komprehensif,
+            serta memberikan rekomendasi anime yang dipersonalisasi.<br><br>
+            <b>Sumber Data:</b><br>
+            • <b>anime-dataset-2023.csv</b> — informasi lengkap anime (judul, genre, skor, studio, sinopsis, dll.)<br>
+            • <b>users-details-2023.csv</b> — profil pengguna (gender, lokasi, usia)<br>
+            • <b>users-score-small.csv</b> — rating pengguna, digunakan sebagai basis sistem rekomendasi
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ===== PANDUAN PER HALAMAN =====
+    st.markdown('<div class="section-title">🗺️ Panduan Per Halaman</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Penjelasan singkat fungsi setiap menu di sidebar.</p>', unsafe_allow_html=True)
+
+    pages_info = [
+        ("🏠 Overview", [
+            "Gunakan <b>kotak pencarian</b> di bagian atas untuk mencari anime berdasarkan nama.",
+            "Scroll ke bawah untuk melihat <b>KPI statistik global</b>, top-rated anime, dan AI Quick Insights.",
+            "Kartu <b>Anime of The Day</b> menampilkan anime pilihan acak dari koleksi terbaik dataset.",
+            "Kartu <b>AI Insight</b> menampilkan ringkasan otomatis genre dominan dan anime terbaik."
+        ]),
+        ("📊 Analytics", [
+            "Lihat <b>distribusi skor</b> anime dalam bentuk histogram dan box plot.",
+            "Grafik <b>Top Genres</b> menampilkan 15 genre yang paling banyak muncul dalam dataset.",
+            "Scatter plot <b>Popularity vs Score</b> menampilkan hubungan jumlah member dengan skor (sumbu X log).",
+            "<b>Heatmap Korelasi</b> menampilkan korelasi antar variabel numerik (Score, Members, Rank, dll.)."
+        ]),
+        ("🌐 Anime Explorer", [
+            "Gunakan dropdown <b>Search Anime</b> untuk mencari anime spesifik berdasarkan nama.",
+            "Filter berdasarkan <b>Genre</b>, <b>Tipe</b> (TV/Movie/OVA), dan <b>Minimum Score</b>.",
+            "Klik tombol <b>❤️ Add to Favorites</b> pada kartu poster untuk menyimpan anime.",
+            "Scroll ke bawah untuk melihat galeri poster, trending anime, grafik studio, dan katalog lengkap."
+        ]),
+        ("👥 User Analytics", [
+            "Pie chart <b>Gender Distribution</b> menampilkan persebaran gender pengguna.",
+            "Bar chart <b>Top Countries</b> menampilkan 10 negara dengan jumlah pengguna terbanyak.",
+            "Histogram <b>Age Distribution</b> menampilkan sebaran usia pengguna.",
+            "Tabel <b>Top Active Users</b> menampilkan pengguna yang paling banyak memberikan rating."
+        ]),
+        ("🎯 Recommendations", [
+            "Pilih anime dari dropdown untuk mendapatkan rekomendasi berbasis <b>Collaborative Filtering</b>.",
+            "10 anime paling mirip ditampilkan dalam kartu poster beserta <b>persentase kemiripannya</b>.",
+            "Klik ikon ❤️ untuk menyimpan rekomendasi ke <b>Favorites</b>.",
+            "Tabel <b>Similarity Details</b> menampilkan data lengkap termasuk nilai similarity (0–1)."
+        ]),
+        ("🧠 AI Insights", [
+            "Baca <b>AI Summary</b> untuk ringkasan tren terkini secara otomatis.",
+            "Grafik <b>Genre Popularity Trend</b> menampilkan genre yang paling banyak diminati.",
+            "Tabel <b>Potential Future Hits</b> — anime skor tinggi tapi popularitas masih rendah.",
+            "<b>Studio Analysis</b> menampilkan studio dengan rata-rata skor produksi tertinggi."
+        ]),
+        ("❤️ Favorites", [
+            "Menampilkan semua anime yang telah ditambahkan ke favorit selama sesi berlangsung.",
+            "<b>Catatan:</b> Data favorit akan hilang saat halaman di-refresh karena menggunakan session state.",
+            "Tambah anime dari <b>Anime Explorer</b> atau halaman <b>Recommendations</b>."
+        ]),
+    ]
+
+    for title, items in pages_info:
+        items_html = "".join([f'<li class="guide-item">• {item}</li>' for item in items])
+        st.markdown(f"""
+        <div class="guide-card">
+            <div class="guide-title">{title}</div>
+            <ul style="list-style:none; padding:0; margin:0;">{items_html}</ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ===== ALGORITMA =====
+    st.markdown('<div class="section-title">🤖 Logika Algoritma Rekomendasi</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Cara kerja sistem rekomendasi di balik dashboard ini.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="guide-card">
+        <p class="guide-item">
+            Sistem rekomendasi menggunakan pendekatan <b>Item-Based Collaborative Filtering</b>
+            dengan algoritma <b>Cosine Similarity</b>:<br><br>
+            <b>1. Pengumpulan Data Rating</b><br>
+            &nbsp;&nbsp;&nbsp;Hanya anime yang dirating oleh minimal 20 pengguna yang diikutsertakan
+            untuk menghindari cold-start problem.<br><br>
+            <b>2. User-Item Matrix</b><br>
+            &nbsp;&nbsp;&nbsp;Data rating diubah menjadi matriks: baris = anime, kolom = pengguna,
+            nilai = rating (kosong diisi 0).<br><br>
+            <b>3. Cosine Similarity</b><br>
+            &nbsp;&nbsp;&nbsp;Mengukur kemiripan antar anime berdasarkan pola rating.
+            Nilai 0 = tidak mirip, 1 = identik.<br><br>
+            <b>4. Proses Rekomendasi</b><br>
+            &nbsp;&nbsp;&nbsp;Sistem mencari 10 anime dengan nilai similarity tertinggi
+            terhadap anime yang dipilih pengguna.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ===== TROUBLESHOOTING =====
+    st.markdown('<div class="section-title">🔧 Troubleshooting</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Solusi untuk masalah yang mungkin ditemui.</p>', unsafe_allow_html=True)
+
+    troubles = [
+        ("Dataset tidak ditemukan", "Pastikan <b>anime-dataset-2023.csv</b> dan <b>users-score-small.csv</b> ada di folder yang sama dengan file .py"),
+        ("Rekomendasi tidak muncul", "Pilih anime yang lebih populer — anime dengan kurang dari 20 rating tidak masuk sistem rekomendasi"),
+        ("Gambar poster tidak muncul", "Normal untuk beberapa anime — gambar diambil langsung dari URL di dataset yang mungkin sudah tidak aktif"),
+        ("Dashboard lambat saat startup", "Tunggu hingga proses selesai — matriks similarity sedang dibangun. Setelah itu semua navigasi akan cepat berkat caching"),
+        ("users-details-2023.csv tidak ada", "File akan diunduh otomatis dari Google Drive saat pertama kali dijalankan. Pastikan koneksi internet aktif"),
+    ]
+
+    for problem, solution in troubles:
+        st.markdown(f"""
+        <div class="guide-card" style="padding:16px 22px;">
+            <div class="guide-title" style="font-size:15px; color:#f9a8d4;">⚠️ {problem}</div>
+            <p class="guide-item">→ {solution}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
 elif page == "Settings":
     show_banner("⚙️ Settings", "Customize your dashboard experience", small=True)
 
