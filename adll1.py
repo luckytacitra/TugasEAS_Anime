@@ -333,6 +333,15 @@ div.hero-title, div.hero-subtitle, div.hero-desc, div.hero-welcome {{
 .stApp .stMarkdown, .stApp [data-testid="stText"] {{
     color: {text_primary} !important;
 }}
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] summary p,
+[data-testid="stExpander"] summary span {{
+    color: {text_primary} !important;
+    -webkit-text-fill-color: {text_primary} !important;
+}}
+[data-testid="stExpander"] summary:hover {{
+    color: {text_primary} !important;
+}}
 [data-testid="stSidebar"] * {{
     color: {text_primary} !important;
 }}
