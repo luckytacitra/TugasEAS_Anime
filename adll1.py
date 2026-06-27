@@ -358,6 +358,7 @@ def show_topnav():
     moon_icon = "☀️" if not st.session_state.dark_mode else "🌙"
 
     # 2 kolom: kiri kosong, kanan isi
+    # 2 kolom: kiri kosong, kanan isi
     col_left, col_right = st.columns([6, 1.5])
     with col_left:
         pass
