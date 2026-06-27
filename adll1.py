@@ -393,6 +393,26 @@ div.hero-title, div.hero-subtitle, div.hero-desc, div.hero-welcome {{
     color: white !important;
     -webkit-text-fill-color: white !important;
 }}
+
+/* FIX: blok kode ```...``` di st.markdown ikut tema juga.
+   Latar blok kode bawaan Streamlit selalu terang, sementara teks di
+   dalamnya sudah dipaksa jadi {text_primary} (putih saat dark mode),
+   makanya teks-nya hilang ketika latar masih terang. */
+[data-testid="stCodeBlock"],
+[data-testid="stCodeBlock"] pre,
+[data-testid="stCodeBlock"] code,
+.stApp pre, .stApp code {{
+    background: {kpi_bg} !important;
+    border: 1px solid {card_border} !important;
+    border-radius: 10px !important;
+}}
+[data-testid="stCodeBlock"] pre *,
+[data-testid="stCodeBlock"] code *,
+.stApp pre *, .stApp code * {{
+    color: {text_primary} !important;
+    -webkit-text-fill-color: {text_primary} !important;
+    background: transparent !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
