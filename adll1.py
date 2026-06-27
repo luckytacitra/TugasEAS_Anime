@@ -652,7 +652,12 @@ elif page == "Analytics":
 
     left,right = st.columns([1.5,1])
     with left:
-        st.markdown('<div class="section-title">📶 Anime Score Distribution</div>', unsafe_allow_html=True)
+        st.markdown("""
+    <div class="section-title"
+         title="Histogram ini menunjukkan distribusi skor anime dari 1–10. Semakin tinggi batang, semakin banyak anime yang memiliki skor tersebut. Nilai UNKNOWN telah diganti dengan rata-rata skor.">
+    📶 Anime Score Distribution
+    </div>
+    """, unsafe_allow_html=True)
         st.caption("ℹ️ Menampilkan sebaran skor anime (1–10). Semakin tinggi batang, semakin banyak anime dengan skor tersebut. Nilai UNKNOWN diganti dengan rata-rata skor.")
         fig = px.histogram(df_anime["Score"].dropna(), nbins=20, color_discrete_sequence=["#a855f7"])
         fig.update_traces(marker_line_width=0)
