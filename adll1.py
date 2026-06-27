@@ -254,6 +254,32 @@ header[data-testid="stHeader"] { background: transparent; }
     margin-left: 8px; vertical-align: middle;
 }
 
+/* Input, selectbox, textarea selalu pakai teks gelap supaya terbaca di background putih */
+.stTextInput input,
+.stTextInput textarea,
+.stSelectbox select,
+[data-testid="stTextInput"] input,
+[data-testid="stTextInput"] textarea,
+[data-baseweb="input"] input,
+[data-baseweb="textarea"] textarea,
+[data-baseweb="select"] [data-testid="stMarkdownContainer"],
+[data-baseweb="select"] span,
+[data-baseweb="select"] div,
+[data-testid="stSelectbox"] span,
+[data-testid="stSelectbox"] div,
+div[data-baseweb="select"] > div,
+div[data-baseweb="input"] > div > input {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+/* Placeholder text */
+.stTextInput input::placeholder,
+[data-baseweb="input"] input::placeholder {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
