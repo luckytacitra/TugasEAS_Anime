@@ -257,30 +257,6 @@ header[data-testid="stHeader"] { background: transparent; }
 </style>
 """, unsafe_allow_html=True)
 
-.tooltip-wrap { position: relative; display: inline-block; cursor: pointer; }
-.tooltip-wrap .tooltip-box {
-    visibility: hidden; opacity: 0;
-    background: #1e293b; color: #e2e8f0;
-    font-size: 12.5px; font-weight: 400;
-    border: 1px solid rgba(168,85,247,0.4);
-    border-radius: 10px; padding: 10px 14px;
-    width: 240px; position: absolute;
-    top: 28px; left: 0; z-index: 999;
-    transition: opacity 0.2s;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    line-height: 1.6;
-}
-.tooltip-wrap:hover .tooltip-box { visibility: visible; opacity: 1; }
-.tooltip-icon {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 18px; height: 18px; border-radius: 50%;
-    background: rgba(168,85,247,0.2); border: 1px solid rgba(168,85,247,0.5);
-    color: #a855f7; font-size: 11px; font-weight: 700;
-    margin-left: 8px; vertical-align: middle;
-}
-
-</style>
-""", unsafe_allow_html=True)
 
 # ===== DYNAMIC THEME =====
 if st.session_state.dark_mode:
@@ -667,12 +643,14 @@ elif page == "Analytics":
     with left:
         st.markdown('''
 <div class="section-title">📶 Anime Score Distribution
-    <span title="Grafik ini menampilkan sebaran skor anime dari seluruh dataset. Skor berkisar dari 1-10. Semakin tinggi batang, semakin banyak anime dengan skor tersebut. Nilai UNKNOWN telah diganti dengan rata-rata skor keseluruhan."
-          style="display:inline-flex; align-items:center; justify-content:center;
-                 width:18px; height:18px; border-radius:50%;
-                 background:rgba(168,85,247,0.2); border:1px solid rgba(168,85,247,0.5);
-                 color:#a855f7; font-size:11px; font-weight:700;
-                 margin-left:8px; vertical-align:middle; cursor:help;">i</span>
+    <span class="tooltip-wrap">
+        <span class="tooltip-icon">i</span>
+        <span class="tooltip-box">
+            Grafik ini menampilkan sebaran skor anime dari seluruh dataset.<br><br>
+            Skor berkisar dari 1–10. Semakin tinggi batang, semakin banyak anime dengan skor tersebut.<br><br>
+            Nilai "UNKNOWN" telah diganti dengan rata-rata skor keseluruhan.
+        </span>
+    </span>
 </div>
 ''', unsafe_allow_html=True)
         fig = px.histogram(df_anime["Score"].dropna(), nbins=20, color_discrete_sequence=["#a855f7"])
