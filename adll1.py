@@ -641,18 +641,8 @@ elif page == "Analytics":
 
     left,right = st.columns([1.5,1])
     with left:
-        st.markdown('''
-<div class="section-title">📶 Anime Score Distribution
-    <span class="tooltip-wrap">
-        <span class="tooltip-icon">i</span>
-        <span class="tooltip-box">
-            Grafik ini menampilkan sebaran skor anime dari seluruh dataset.<br><br>
-            Skor berkisar dari 1–10. Semakin tinggi batang, semakin banyak anime dengan skor tersebut.<br><br>
-            Nilai "UNKNOWN" telah diganti dengan rata-rata skor keseluruhan.
-        </span>
-    </span>
-</div>
-''', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">📶 Anime Score Distribution</div>', unsafe_allow_html=True)
+        st.caption("ℹ️ Menampilkan sebaran skor anime (1–10). Semakin tinggi batang, semakin banyak anime dengan skor tersebut. Nilai UNKNOWN diganti dengan rata-rata skor.")
         fig = px.histogram(df_anime["Score"].dropna(), nbins=20, color_discrete_sequence=["#a855f7"])
         fig.update_traces(marker_line_width=0)
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font_color="#cbd5e1", height=380,
@@ -663,6 +653,7 @@ elif page == "Analytics":
 
     with right:
         st.markdown('<div class="section-title">🏆 Top Anime by Score</div>', unsafe_allow_html=True)
+        st.caption("ℹ️ 10 anime dengan skor rata-rata tertinggi berdasarkan dataset.")
         top10 = df_anime.sort_values("Score", ascending=False).head(10)[["Name", "Score", "Type", "Members"]]
         top10 = top10.reset_index(drop=True)
         top10.index = top10.index + 1
@@ -683,6 +674,7 @@ elif page == "Analytics":
     left,right = st.columns(2)
     with left:
         st.markdown('<div class="section-title">🎭 Top Genres</div>', unsafe_allow_html=True)
+        st.caption("ℹ️ 15 genre yang paling banyak muncul. Satu anime bisa memiliki lebih dari satu genre.")
         genre_count = df_anime["Genres"].dropna().str.split(", ").explode().value_counts().head(15)
         fig = px.bar(x=genre_count.values, y=genre_count.index, orientation="h", color_discrete_sequence=["#a855f7"])
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font_color="#cbd5e1", height=460,
@@ -692,6 +684,7 @@ elif page == "Analytics":
 
     with right:
         st.markdown('<div class="section-title">⭐ Score Distribution (Box)</div>', unsafe_allow_html=True)
+        st.caption("ℹ️ Box plot menampilkan median, kuartil, dan outlier skor anime.")
         fig2 = px.box(df_anime, y="Score", color_discrete_sequence=["#ec4899"])
         fig2.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font_color="#cbd5e1", height=460, margin=dict(l=10,r=10,t=10,b=10))
         fig2.update_xaxes(gridcolor="rgba(255,255,255,0.05)")
@@ -699,6 +692,7 @@ elif page == "Analytics":
         st.plotly_chart(fig2, use_container_width=True)
 
     st.markdown('<div class="section-title">🔥 Anime Popularity vs Score</div>', unsafe_allow_html=True)
+    st.caption("ℹ️ Scatter plot hubungan antara jumlah member (popularitas) dan skor anime. Sumbu X menggunakan skala logaritmik.")
     sample_df = df_anime.dropna(subset=["Score", "Members"]).sample(min(3000, len(df_anime)), random_state=42)
     fig3 = px.scatter(sample_df, x="Members", y="Score", color="Type", hover_data=["Name"],
                        color_discrete_sequence=["#7c3aed","#ec4899","#f59e0b","#3b82f6","#06b6d4","#22c55e"])
@@ -711,6 +705,7 @@ elif page == "Analytics":
     left, right = st.columns(2)
     with left:
         st.markdown('<div class="section-title">🌡 Correlation Heatmap</div>', unsafe_allow_html=True)
+        st.caption("ℹ️ Menampilkan korelasi antar variabel numerik. Nilai mendekati 1 berarti korelasi positif kuat, mendekati -1 berarti negatif kuat.")
         cols_heatmap = [c for c in ["Score", "Members", "Favorites", "Popularity", "Rank"] if c in df_anime.columns]
         if len(cols_heatmap) > 1:
             corr = df_anime[cols_heatmap].apply(pd.to_numeric, errors="coerce").corr()
@@ -732,6 +727,7 @@ elif page == "Analytics":
             st.plotly_chart(fig5, use_container_width=True)
 
     st.markdown('<div class="section-title">🏆 Most Popular Anime</div>', unsafe_allow_html=True)
+    st.caption("ℹ️ Anime dengan jumlah member terbanyak di platform MyAnimeList.")
     popular = df_anime.sort_values("Popularity").head(10) if "Popularity" in df_anime.columns else df_anime.sort_values("Members", ascending=False).head(10)
     cols = st.columns(5)
     for i,(_,row) in enumerate(popular.head(5).iterrows()):
