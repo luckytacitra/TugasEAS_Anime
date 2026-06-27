@@ -667,14 +667,12 @@ elif page == "Analytics":
     with left:
         st.markdown('''
 <div class="section-title">📶 Anime Score Distribution
-    <span class="tooltip-wrap">
-        <span class="tooltip-icon">i</span>
-        <span class="tooltip-box">
-            Grafik ini menampilkan sebaran skor anime dari seluruh dataset.<br><br>
-            Skor berkisar dari 1–10. Semakin tinggi batang, semakin banyak anime dengan skor tersebut.<br><br>
-            Nilai "UNKNOWN" telah diganti dengan rata-rata skor keseluruhan.
-        </span>
-    </span>
+    <span title="Grafik ini menampilkan sebaran skor anime dari seluruh dataset. Skor berkisar dari 1-10. Semakin tinggi batang, semakin banyak anime dengan skor tersebut. Nilai UNKNOWN telah diganti dengan rata-rata skor keseluruhan."
+          style="display:inline-flex; align-items:center; justify-content:center;
+                 width:18px; height:18px; border-radius:50%;
+                 background:rgba(168,85,247,0.2); border:1px solid rgba(168,85,247,0.5);
+                 color:#a855f7; font-size:11px; font-weight:700;
+                 margin-left:8px; vertical-align:middle; cursor:help;">i</span>
 </div>
 ''', unsafe_allow_html=True)
         fig = px.histogram(df_anime["Score"].dropna(), nbins=20, color_discrete_sequence=["#a855f7"])
