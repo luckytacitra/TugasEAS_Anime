@@ -564,6 +564,7 @@ if page == "Overview":
     left, mid, right = st.columns([1.4, 1.1, 1.1])
     with left:
         st.markdown('<div class="section-title">📶 Anime Score Distribution</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Menampilkan sebaran skor anime (1–10). Semakin tinggi batang, semakin banyak anime dengan skor tersebut.</p>', unsafe_allow_html=True)
         fig = px.histogram(df_anime["Score"].dropna(), nbins=20, color_discrete_sequence=["#a855f7"])
         fig.update_traces(marker_line_width=0)
         fig.update_layout(
@@ -578,6 +579,7 @@ if page == "Overview":
 
     with mid:
         st.markdown('<div class="section-title">🎭 Top Genres</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Genre yang paling banyak muncul dalam dataset. Satu anime bisa memiliki lebih dari satu genre.</p>', unsafe_allow_html=True)
         genre_count = df_anime["Genres"].dropna().str.split(", ").explode().value_counts().head(6)
         fig2 = px.pie(
             names=genre_count.index, values=genre_count.values, hole=0.65,
@@ -599,6 +601,7 @@ if page == "Overview":
 
     with right:
         st.markdown('<div class="section-title">🔥 Anime of The Day</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Anime pilihan acak hari ini dari koleksi terbaik dataset.</p>', unsafe_allow_html=True)
         if "anime_of_day" not in st.session_state:
             st.session_state.anime_of_day = df_anime.sample(1).iloc[0]
         anime_day = st.session_state.anime_of_day
@@ -621,6 +624,7 @@ if page == "Overview":
     left2, right2 = st.columns([2,1])
     with left2:
         st.markdown('<div class="section-title">🏆 Top Rated Anime</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Anime dengan skor tertinggi berdasarkan rating komunitas MyAnimeList.</p>', unsafe_allow_html=True)
         top5 = df_anime.sort_values("Score", ascending=False).head(5).reset_index(drop=True)
         cols = st.columns(5)
         for i, row in top5.iterrows():
@@ -637,6 +641,7 @@ if page == "Overview":
 
     with right2:
         st.markdown('<div class="section-title">💡 AI Insight</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Ringkasan otomatis tren dan fakta menarik dari data anime saat ini.</p>', unsafe_allow_html=True)
         top_genre_name = df_anime["Genres"].dropna().str.split(", ").explode().value_counts().idxmax()
         top_genre_pct = round(df_anime["Genres"].dropna().str.split(", ").explode().value_counts(normalize=True).max()*100, 1)
         top_anime_name = df_anime.sort_values("Score", ascending=False).iloc[0]["Name"]
@@ -649,6 +654,7 @@ if page == "Overview":
         """, unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">💡 AI Quick Insights</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Analisis singkat otomatis dari dataset: genre dominan, anime terbaik, dan statistik utama.</p>', unsafe_allow_html=True)
     insight1,insight2,insight3 = st.columns(3)
     with insight1:
         st.markdown(f'<div class="glass-card"><h3>🔥 Most Dominant Genre</h3>{top_genre_name} remains the most common genre across the dataset.</div>', unsafe_allow_html=True)
@@ -695,6 +701,7 @@ elif page == "Analytics":
 
     with right:
         st.markdown('<div class="section-title">🏆 Top Anime by Score</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ 10 anime dengan skor rata-rata tertinggi berdasarkan dataset.</p>', unsafe_allow_html=True)
         st.caption("ℹ️ 10 anime dengan skor rata-rata tertinggi berdasarkan dataset.")
         top10 = df_anime.sort_values("Score", ascending=False).head(10)[["Name", "Score", "Type", "Members"]]
         top10 = top10.reset_index(drop=True)
@@ -716,7 +723,7 @@ elif page == "Analytics":
     left,right = st.columns(2)
     with left:
         st.markdown('<div class="section-title">🎭 Top Genres</div>', unsafe_allow_html=True)
-        st.caption("ℹ️ 15 genre yang paling banyak muncul. Satu anime bisa memiliki lebih dari satu genre.")
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ 15 genre paling populer. Satu anime bisa masuk ke banyak genre sekaligus.</p>', unsafe_allow_html=True)
         genre_count = df_anime["Genres"].dropna().str.split(", ").explode().value_counts().head(15)
         fig = px.bar(x=genre_count.values, y=genre_count.index, orientation="h", color_discrete_sequence=["#a855f7"])
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font_color="#cbd5e1", height=460,
@@ -726,6 +733,7 @@ elif page == "Analytics":
 
     with right:
         st.markdown('<div class="section-title">⭐ Score Distribution (Box)</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Box plot menampilkan median, kuartil, dan outlier distribusi skor anime.</p>', unsafe_allow_html=True)
         st.caption("ℹ️ Box plot menampilkan median, kuartil, dan outlier skor anime.")
         fig2 = px.box(df_anime, y="Score", color_discrete_sequence=["#ec4899"])
         fig2.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font_color="#cbd5e1", height=460, margin=dict(l=10,r=10,t=10,b=10))
@@ -734,6 +742,7 @@ elif page == "Analytics":
         st.plotly_chart(fig2, use_container_width=True)
 
     st.markdown('<div class="section-title">🔥 Anime Popularity vs Score</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Hubungan antara jumlah member (popularitas) dan skor anime. Sumbu X menggunakan skala logaritmik.</p>', unsafe_allow_html=True)
     st.caption("ℹ️ Scatter plot hubungan antara jumlah member (popularitas) dan skor anime. Sumbu X menggunakan skala logaritmik.")
     sample_df = df_anime.dropna(subset=["Score", "Members"]).sample(min(3000, len(df_anime)), random_state=42)
     fig3 = px.scatter(sample_df, x="Members", y="Score", color="Type", hover_data=["Name"],
@@ -747,6 +756,7 @@ elif page == "Analytics":
     left, right = st.columns(2)
     with left:
         st.markdown('<div class="section-title">🌡 Correlation Heatmap</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Korelasi antar variabel numerik. Nilai 1 = korelasi positif kuat, -1 = negatif kuat.</p>', unsafe_allow_html=True)
         st.caption("ℹ️ Menampilkan korelasi antar variabel numerik. Nilai mendekati 1 berarti korelasi positif kuat, mendekati -1 berarti negatif kuat.")
         cols_heatmap = [c for c in ["Score", "Members", "Favorites", "Popularity", "Rank"] if c in df_anime.columns]
         if len(cols_heatmap) > 1:
@@ -760,6 +770,7 @@ elif page == "Analytics":
     with right:
         if "Studios" in df_anime.columns:
             st.markdown('<div class="section-title">🏢 Top Studios</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Studio anime dengan jumlah produksi terbanyak dalam dataset.</p>', unsafe_allow_html=True)
             studios = df_anime["Studios"].dropna()
             studios = studios[studios.str.lower() != "unknown"].value_counts().head(10)
             fig5 = px.bar(x=studios.values, y=studios.index, orientation="h", color_discrete_sequence=["#3b82f6"])
@@ -769,6 +780,7 @@ elif page == "Analytics":
             st.plotly_chart(fig5, use_container_width=True)
 
     st.markdown('<div class="section-title">🏆 Most Popular Anime</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Anime dengan jumlah member terbanyak di MyAnimeList.</p>', unsafe_allow_html=True)
     st.caption("ℹ️ Anime dengan jumlah member terbanyak di platform MyAnimeList.")
     popular = df_anime.sort_values("Popularity").head(10) if "Popularity" in df_anime.columns else df_anime.sort_values("Members", ascending=False).head(10)
     cols = st.columns(5)
@@ -822,6 +834,7 @@ elif page == "Anime Explorer":
     st.success(f"{len(filtered):,} anime found")
 
     st.markdown('<div class="section-title">🎬 Anime Gallery</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Galeri poster anime hasil filter. Klik ❤️ untuk menyimpan ke Favorites.</p>', unsafe_allow_html=True)
     preview = filtered.head(12).reset_index(drop=True)
     cols = st.columns(4)
     for idx, row in preview.iterrows():
@@ -851,6 +864,7 @@ elif page == "Anime Explorer":
             st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">🔥 Trending Anime</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Anime dengan pertumbuhan popularitas tertinggi berdasarkan jumlah member.</p>', unsafe_allow_html=True)
     trending = filtered.sort_values("Members", ascending=False).head(8).reset_index(drop=True)
     cols = st.columns(8)
     for i, row in trending.iterrows():
@@ -861,6 +875,7 @@ elif page == "Anime Explorer":
 
     if "Studios" in df_anime.columns:
         st.markdown('<div class="section-title">🏢 Top Studios</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Studio dengan jumlah anime terbanyak dari hasil filter saat ini.</p>', unsafe_allow_html=True)
         studios = df_anime["Studios"].dropna()
         studios = studios[studios.str.lower() != "unknown"].value_counts().head(10)
         fig = px.bar(x=studios.index, y=studios.values, color_discrete_sequence=["#a855f7"])
@@ -871,6 +886,7 @@ elif page == "Anime Explorer":
         st.plotly_chart(fig, use_container_width=True)
 
     st.markdown('<div class="section-title">📋 Anime Catalog</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Tabel lengkap semua anime sesuai filter. Klik header kolom untuk mengurutkan.</p>', unsafe_allow_html=True)
     st.dataframe(filtered[["Name", "Genres", "Score", "Type", "Members"]], use_container_width=True, height=500)
 
 # ---- PAGE USER ANALYTICS ----
@@ -893,6 +909,7 @@ elif page == "User Analytics":
     if "Gender" in df_user.columns:
         with left:
             st.markdown('<div class="section-title">👤 Gender Distribution</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Persebaran gender dari seluruh pengguna dalam dataset.</p>', unsafe_allow_html=True)
             gender = df_user["Gender"].dropna().value_counts()
             fig = px.pie(values=gender.values, names=gender.index, hole=0.5,
                          color_discrete_sequence=["#7c3aed","#ec4899","#3b82f6","#f59e0b"])
@@ -902,6 +919,7 @@ elif page == "User Analytics":
     if "Location" in df_user.columns:
         with right:
             st.markdown('<div class="section-title">🌍 Top Countries</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ 10 negara dengan jumlah pengguna terbanyak di platform.</p>', unsafe_allow_html=True)
             countries = df_user["Location"].dropna()
             countries = countries[countries.str.lower() != "unknown"].value_counts().head(10)
             fig2 = px.bar(x=countries.values, y=countries.index, orientation="h", color_discrete_sequence=["#7c3aed"])
@@ -912,6 +930,7 @@ elif page == "User Analytics":
 
     if "Birthday" in df_user.columns:
         st.markdown('<div class="section-title">🎂 Age Distribution</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Sebaran usia pengguna berdasarkan tanggal lahir yang terdaftar.</p>', unsafe_allow_html=True)
         def get_age(date):
             try:
                 year = int(str(date).split("-")[0])
@@ -928,6 +947,7 @@ elif page == "User Analytics":
         st.plotly_chart(fig3, use_container_width=True)
 
     st.markdown('<div class="section-title">⭐ Most Rated Anime</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Anime yang paling banyak mendapat rating dari pengguna dalam dataset.</p>', unsafe_allow_html=True)
     top_rated = df_score.groupby("anime_id").size().reset_index(name="Total Ratings").sort_values("Total Ratings", ascending=False).head(10)
     top_rated = top_rated.merge(df_anime[["anime_id", "Name"]], on="anime_id", how="left")
     fig4 = px.bar(top_rated, x="Total Ratings", y="Name", orientation="h", color_discrete_sequence=["#3b82f6"])
@@ -937,6 +957,7 @@ elif page == "User Analytics":
     st.plotly_chart(fig4, use_container_width=True)
 
     st.markdown('<div class="section-title">🏆 Top Active Users</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ 10 pengguna yang paling banyak memberikan rating anime.</p>', unsafe_allow_html=True)
     st.caption("Top users by number of ratings submitted")
     top_users_tbl = df_score.groupby("user_id").size().reset_index(name="Anime Rated").sort_values("Anime Rated", ascending=False).head(10)
     avg_per_user = df_score.groupby("user_id")["rating"].apply(lambda s: round(s.replace(-1, np.nan).mean(), 2)).reset_index(name="Avg Score")
@@ -984,6 +1005,7 @@ elif page == "Recommendations":
             recs = recs.sort_values("Similarity", ascending=False).reset_index(drop=True)
 
             st.markdown('<div class="section-title">✨ Top 10 Recommendations For You</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Rekomendasi berdasarkan kemiripan pola rating pengguna (Collaborative Filtering).</p>', unsafe_allow_html=True)
             for row_start in range(0, len(recs), 5):
                 cols = st.columns(5)
                 chunk = recs.iloc[row_start:row_start+5].reset_index(drop=True)
@@ -1013,6 +1035,7 @@ elif page == "Recommendations":
                         st.markdown('</div>', unsafe_allow_html=True)
 
             st.markdown('<div class="section-title">📋 Similarity Details</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Tabel detail nilai kemiripan (0–1) antara anime yang dipilih dengan rekomendasinya.</p>', unsafe_allow_html=True)
             st.dataframe(recs[["Name", "Genres", "Score", "Similarity"]], use_container_width=True, hide_index=True)
         else:
             st.warning("This anime does not have enough rating data for recommendations.")
@@ -1038,6 +1061,7 @@ elif page == "AI Insights":
     left,right = st.columns([1,1.3])
     with left:
         st.markdown('<div class="section-title">✨ AI Summary</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Ringkasan otomatis tren terkini: genre dominan, anime potensial, dan pola popularitas.</p>', unsafe_allow_html=True)
         st.markdown(f"""
         <div class="glass-card">
         <p style="color:#cbd5e1; margin-bottom:14px;">Here's what's happening in the anime world right now:</p>
@@ -1050,6 +1074,7 @@ elif page == "AI Insights":
 
     with right:
         st.markdown('<div class="section-title">📈 Genre Popularity Trend</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Perbandingan total member per genre untuk melihat genre mana yang paling diminati.</p>', unsafe_allow_html=True)
         trend_df = pd.DataFrame({
             "Genre": df_anime["Genres"].dropna().str.split(", ").explode().value_counts().head(8).index,
             "Count": df_anime["Genres"].dropna().str.split(", ").explode().value_counts().head(8).values
@@ -1063,6 +1088,7 @@ elif page == "AI Insights":
     left,right = st.columns(2)
     with left:
         st.markdown('<div class="section-title">🎭 Genre Dominance</div>', unsafe_allow_html=True)
+        st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Proporsi masing-masing genre dalam keseluruhan dataset anime.</p>', unsafe_allow_html=True)
         genre_count = df_anime["Genres"].dropna().str.split(", ").explode().value_counts().head(10)
         fig = px.pie(names=genre_count.index, values=genre_count.values, hole=0.5,
                      color_discrete_sequence=["#7c3aed","#ec4899","#f59e0b","#3b82f6","#06b6d4","#22c55e","#eab308","#f97316","#64748b","#94a3b8"])
@@ -1072,6 +1098,7 @@ elif page == "AI Insights":
     with right:
         if "Studios" in df_anime.columns:
             st.markdown('<div class="section-title">🏢 Studio Analysis</div>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Studio dengan rata-rata skor tertinggi dari semua anime yang diproduksi.</p>', unsafe_allow_html=True)
             studio_count = df_anime["Studios"].dropna()
             studio_count = studio_count[studio_count.str.lower() != "unknown"].value_counts().head(10)
             fig2 = px.bar(x=studio_count.values, y=studio_count.index, orientation="h", color_discrete_sequence=["#ec4899"])
@@ -1081,6 +1108,7 @@ elif page == "AI Insights":
             st.plotly_chart(fig2, use_container_width=True)
 
     st.markdown('<div class="section-title">🚀 Potential Future Hits</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Anime dengan skor tinggi namun popularitas masih rendah — berpotensi jadi hits di masa depan.</p>', unsafe_allow_html=True)
     future_hits = df_anime.dropna(subset=["Score","Members"]).sort_values(["Score", "Members"], ascending=False).head(5).reset_index(drop=True)
     cols = st.columns(5)
     for i, row in future_hits.iterrows():
@@ -1095,6 +1123,7 @@ elif page == "AI Insights":
             st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">💡 Strategic Insights</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">ℹ️ Kesimpulan strategis dari analisis data: peluang genre, studio unggulan, dan rekomendasi konten.</p>', unsafe_allow_html=True)
     i1,i2,i3 = st.columns(3)
     with i1:
         st.markdown(f'<div class="glass-card"><h3>🔥 Genre Leader</h3>{top_genre} continues to dominate the anime market.</div>', unsafe_allow_html=True)
