@@ -345,6 +345,54 @@ div.hero-title, div.hero-subtitle, div.hero-desc, div.hero-welcome {{
 [data-testid="stSidebar"] * {{
     color: {text_primary} !important;
 }}
+
+/* FIX: background expander & button ikut tema, bukan cuma teksnya.
+   Sebelumnya cuma warna teks yang diubah jadi {text_primary}, sementara
+   latar bawaan Streamlit (putih/abu-abu terang) untuk header expander
+   yang terbuka dan untuk tombol biasa (secondary) tidak ikut diubah.
+   Akibatnya teks putih jadi nempel di atas latar putih -> tidak kelihatan. */
+[data-testid="stExpander"] {{
+    background: {kpi_bg} !important;
+    border: 1px solid {card_border} !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}}
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] details summary,
+[data-testid="stExpander"] details[open] summary,
+[data-testid="stExpander"] summary:focus {{
+    background: {kpi_bg} !important;
+    color: {text_primary} !important;
+    -webkit-text-fill-color: {text_primary} !important;
+}}
+[data-testid="stExpanderDetails"] {{
+    background: {card_bg} !important;
+    color: {text_primary} !important;
+}}
+
+[data-testid="stButton"] button,
+[data-testid="baseButton-secondary"] {{
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid {card_border} !important;
+}}
+[data-testid="stButton"] button p,
+[data-testid="stButton"] button div,
+[data-testid="stButton"] button span,
+[data-testid="baseButton-secondary"] p,
+[data-testid="baseButton-secondary"] div,
+[data-testid="baseButton-secondary"] span {{
+    color: {text_primary} !important;
+    -webkit-text-fill-color: {text_primary} !important;
+}}
+[data-testid="stButton"] button[kind="primary"] p,
+[data-testid="stButton"] button[kind="primary"] div,
+[data-testid="stButton"] button[kind="primary"] span,
+[data-testid="baseButton-primary"] p,
+[data-testid="baseButton-primary"] div,
+[data-testid="baseButton-primary"] span {{
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
