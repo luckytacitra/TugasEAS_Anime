@@ -340,11 +340,6 @@ with st.sidebar:
     st.session_state.page = page
 
     st.markdown("---")
-    moon_icon = "☀️ Light Mode" if st.session_state.dark_mode else "🌙 Dark Mode"
-    if st.button(moon_icon, key="theme_toggle", use_container_width=True):
-        st.session_state.dark_mode = not st.session_state.dark_mode
-        st.rerun()
-
     st.markdown(f"""
     <div class="sidebar-footer">
     Dataset Update<br>
@@ -363,18 +358,60 @@ def show_topnav():
     moon_icon = "☀️" if not st.session_state.dark_mode else "🌙"
 
     # 2 kolom: kiri kosong, kanan isi
-    col_left, col_right = st.columns([7, 1.5])
+    # 2 kolom: kiri kosong, kanan isi
+    col_left, col_right = st.columns([6, 1.5])
     with col_left:
         pass
     with col_right:
-        st.markdown(f"""
-        <div style="display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:4px 12px 4px 4px; border-radius:999px;">
-            <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#ec4899); display:flex; align-items:center; justify-content:center; font-size:16px; overflow:hidden;">
-                {avatar_html}
+        sub1, sub2 = st.columns([1, 3], gap="small")
+        with sub1:
+            if st.button(moon_icon, key="theme_toggle", help="Toggle Dark/Light Theme", use_container_width=True):
+                st.session_state.dark_mode = not st.session_state.dark_mode
+                st.rerun()
+            st.markdown("""
+            <style>
+            /* Tombol toggle fixed di pojok kanan atas, tidak terpengaruh sidebar */
+            [data-testid="stButton"]:has(button[kind="secondary"]) button {
+                background: rgba(255,255,255,0.06) !important;
+                border: 1px solid rgba(255,255,255,0.08) !important;
+                border-radius: 50% !important;
+                width: 40px !important;
+                height: 40px !important;
+                min-width: 40px !important;
+                max-width: 40px !important;
+                font-size: 18px !important;
+                padding: 0 !important;
+                color: #e2e8f0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            [data-testid="stButton"]:has(button[kind="secondary"]) button:hover {
+                background: rgba(255,255,255,0.12) !important;
+            }
+            /* Pastikan kolom topnav fixed di kanan, tidak bergeser */
+            [data-testid="stHorizontalBlock"]:first-of-type {
+                position: fixed !important;
+                top: 10px !important;
+                right: 20px !important;
+                z-index: 9999 !important;
+                width: auto !important;
+                background: transparent !important;
+            }
+            [data-testid="stHorizontalBlock"]:first-of-type > div:first-child {
+                display: none !important;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+        with sub2:
+            st.markdown(f"""
+            <div style="display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:4px 12px 4px 4px; border-radius:999px; margin-left:2px;">
+                <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#ec4899); display:flex; align-items:center; justify-content:center; font-size:16px; overflow:hidden;">
+                    {avatar_html}
+                </div>
+                <div style="font-size:14px; font-weight:600; color:white;">Otaku User</div>
             </div>
-            <div style="font-size:14px; font-weight:600; color:white;">Otaku User</div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
 show_topnav()
 
