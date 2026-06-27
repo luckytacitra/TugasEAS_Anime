@@ -1190,14 +1190,45 @@ elif page == "User Guide":
     st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Apa itu Anime Insight AI dan fitur-fiturnya.</p>', unsafe_allow_html=True)
     with st.expander("ℹ️ Klik untuk membaca deskripsi dashboard", expanded=True):
         st.markdown("""
-**Anime Insight AI** adalah dashboard analitik interaktif berbasis web yang dibangun dengan Streamlit (Python).
-Dashboard ini mengolah, memvisualisasikan, dan menganalisis data anime secara komprehensif,
-serta memberikan rekomendasi anime yang dipersonalisasi.
+**Anime Insight AI** adalah sebuah dashboard analitik interaktif berbasis web yang dibangun menggunakan framework **Streamlit (Python)**. Dashboard ini dirancang untuk mengolah, memvisualisasikan, dan menganalisis data anime secara komprehensif, serta memberikan rekomendasi anime yang dipersonalisasi kepada pengguna.
 
 **Sumber Data yang Digunakan:**
-- 📄 `anime-dataset-2023.csv` — informasi lengkap anime (judul, genre, skor, studio, sinopsis, dll.)
-- 👤 `users-details-2023.csv` — profil pengguna (gender, lokasi, usia)
-- ⭐ `users-score-small.csv` — rating pengguna, basis sistem rekomendasi
+- 📄 **anime-dataset-2023.csv** — Dataset utama berisi informasi lengkap tentang anime (judul, genre, skor, studio, jumlah member, sinopsis, dll.)
+- 👤 **users-details-2023.csv** — Dataset profil pengguna (gender, lokasi, tanggal lahir, dll.) yang diunduh otomatis dari Google Drive jika belum tersedia
+- ⭐ **users-score-small.csv** — Dataset rating pengguna terhadap anime, digunakan sebagai basis sistem rekomendasi
+
+**Tujuan Dashboard:**
+- Memberikan gambaran statistik menyeluruh tentang ekosistem anime global
+- Membantu pengguna menemukan anime baru berdasarkan preferensi dan kesamaan pola rating
+- Menyajikan wawasan berbasis data tentang genre, studio, dan tren popularitas anime
+- Memungkinkan eksplorasi mendalam terhadap data pengguna dan perilaku menonton
+        """)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ===== NAVIGASI =====
+    st.markdown('<div class="section-title">🧭 Cara Navigasi</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Cara berpindah antar halaman di dashboard.</p>', unsafe_allow_html=True)
+    with st.expander("📌 Petunjuk Navigasi Utama"):
+        st.markdown("""
+Dashboard menggunakan **sidebar di sebelah kiri** sebagai navigasi utama. Klik salah satu menu untuk berpindah halaman.
+
+Sidebar juga menampilkan:
+- Tombol **toggle Dark/Light Mode** untuk mengubah tema tampilan
+- Informasi profil pengguna (Otaku User)
+- Quote motivasi dan informasi versi dashboard
+
+| Menu | Fungsi Utama |
+|------|-------------|
+| 🏠 Overview | Halaman utama, pencarian anime, KPI global |
+| 📊 Analytics | Visualisasi mendalam data anime |
+| 🌐 Anime Explorer | Jelajahi dan filter koleksi anime |
+| 👥 User Analytics | Analisis komunitas pengguna |
+| 🎯 Recommendations | Rekomendasi anime personal |
+| 🧠 AI Insights | Tren dan wawasan otomatis dari AI |
+| ❤️ Favorites | Koleksi anime yang disimpan |
+| 📖 User Guide | Panduan penggunaan (halaman ini) |
+| ⚙️ Settings | Pengaturan tampilan dashboard |
         """)
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -1206,96 +1237,253 @@ serta memberikan rekomendasi anime yang dipersonalisasi.
     st.markdown('<div class="section-title">🗺️ Panduan Per Halaman</div>', unsafe_allow_html=True)
     st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Klik salah satu menu di bawah untuk melihat panduan dan langkah penggunaannya.</p>', unsafe_allow_html=True)
 
-    pages_guide = [
-        ("🏠 Overview — Halaman Utama", [
-            ("1️⃣ Cari Anime", "Gunakan **kotak pencarian** di atas, ketik nama anime lalu klik **Search**."),
-            ("2️⃣ Lihat Statistik", "Scroll ke bawah untuk melihat **KPI global**: total anime, rata-rata skor, total member, dll."),
-            ("3️⃣ Anime of The Day", "Kartu di kanan menampilkan **anime pilihan acak** dari koleksi terbaik dataset."),
-            ("4️⃣ AI Quick Insights", "Baca ringkasan otomatis tentang **genre dominan, anime terbaik**, dan fakta menarik dari data."),
-        ]),
-        ("📊 Analytics — Analisis Data", [
-            ("1️⃣ Distribusi Skor", "Histogram menampilkan sebaran skor anime 1–10. Box plot menampilkan median dan outlier."),
-            ("2️⃣ Top Anime by Score", "Tabel **10 anime dengan skor tertinggi** berdasarkan dataset."),
-            ("3️⃣ Top Genres", "Bar chart **15 genre paling populer**. Satu anime bisa masuk beberapa genre sekaligus."),
-            ("4️⃣ Popularity vs Score", "Scatter plot hubungan **jumlah member** dan **skor anime**. Sumbu X skala logaritmik."),
-            ("5️⃣ Correlation Heatmap", "Merah = korelasi positif kuat, biru = negatif kuat. Variabel: Score, Members, Rank, Favorites."),
-        ]),
-        ("🌐 Anime Explorer — Jelajahi Anime", [
-            ("1️⃣ Cari Anime", "Ketik nama anime di dropdown **Search Anime**."),
-            ("2️⃣ Filter Genre", "Pilih genre dari dropdown **Genre**."),
-            ("3️⃣ Filter Tipe", "Pilih **TV, Movie, OVA**, dll. dari dropdown Type."),
-            ("4️⃣ Filter Skor", "Geser slider **Minimum Score** untuk menyaring anime dengan skor tertentu ke atas."),
-            ("5️⃣ Simpan ke Favorites", "Klik **❤️ Add to Favorites** di kartu poster untuk menyimpan anime."),
-            ("6️⃣ Lihat Katalog", "Scroll ke bawah untuk melihat tabel lengkap semua anime sesuai filter."),
-        ]),
-        ("👥 User Analytics — Analisis Pengguna", [
-            ("1️⃣ Gender Distribution", "Pie chart **persebaran gender** dari seluruh pengguna dalam dataset."),
-            ("2️⃣ Top Countries", "Bar chart **10 negara** dengan jumlah pengguna terbanyak."),
-            ("3️⃣ Age Distribution", "Histogram **sebaran usia** pengguna berdasarkan tanggal lahir terdaftar."),
-            ("4️⃣ Most Rated Anime", "Anime yang paling banyak mendapat rating dari komunitas pengguna."),
-            ("5️⃣ Top Active Users", "Tabel **10 pengguna** dengan jumlah rating terbanyak."),
-        ]),
-        ("🎯 Recommendations — Sistem Rekomendasi", [
-            ("1️⃣ Pilih Anime", "Pilih anime dari dropdown di bagian atas halaman."),
-            ("2️⃣ Lihat Detail", "Detail anime yang dipilih muncul beserta sinopsisnya."),
-            ("3️⃣ Lihat Rekomendasi", "10 anime paling mirip ditampilkan dalam kartu poster dengan **persentase kemiripan**."),
-            ("4️⃣ Simpan Rekomendasi", "Klik ❤️ pada kartu untuk menyimpan anime ke **Favorites**."),
-            ("5️⃣ Cek Similarity", "Tabel **Similarity Details** di bawah menampilkan nilai kemiripan (0–1) secara lengkap."),
-        ]),
-        ("🧠 AI Insights — Wawasan AI", [
-            ("1️⃣ AI Summary", "Baca ringkasan otomatis tren terkini: **genre dominan, anime potensial**, dan pola popularitas."),
-            ("2️⃣ Genre Popularity Trend", "Bar chart **total member per genre** — genre mana yang paling banyak diminati."),
-            ("3️⃣ Genre Dominance", "Pie chart proporsi **masing-masing genre** dalam keseluruhan dataset."),
-            ("4️⃣ Studio Analysis", "Studio dengan **rata-rata skor tertinggi** dari semua anime yang diproduksi."),
-            ("5️⃣ Potential Future Hits", "Anime **skor tinggi tapi popularitas rendah** — berpotensi hits di masa depan."),
-        ]),
-        ("❤️ Favorites — Koleksi Favorit", [
-            ("1️⃣ Lihat Koleksi", "Semua anime yang kamu simpan selama sesi ini muncul di sini."),
-            ("2️⃣ Tambah Favorit", "Pergi ke **Anime Explorer** atau **Recommendations**, lalu klik tombol ❤️ pada kartu anime."),
-            ("3️⃣ Catatan Penting", "Data favorit **hilang saat halaman di-refresh** karena disimpan sementara di session state."),
-        ]),
-    ]
+    with st.expander("🏠 Overview — Halaman Utama"):
+        st.markdown("""
+**Fungsi:** Halaman utama dengan ringkasan statistik global, pencarian cepat anime, dan AI Quick Insights.
 
-    for page_title, steps in pages_guide:
-        with st.expander(page_title):
-            for step_title, step_desc in steps:
-                st.markdown(f"**{step_title}** — {step_desc}")
+**Langkah Penggunaan:**
+1. **Cari Anime** — Gunakan kotak pencarian di bagian atas, ketik nama anime lalu klik tombol **Search** untuk menampilkan detail anime yang dipilih
+2. **Lihat Statistik Global** — Scroll ke bawah untuk melihat KPI: total anime, total pengguna, rata-rata skor, total genre, dan total rating
+3. **Anime Score Distribution** — Histogram distribusi skor anime di sisi kiri halaman
+4. **Top Genres** — Pie chart genre paling banyak muncul dalam dataset
+5. **Anime of The Day** — Kartu di kanan menampilkan anime pilihan acak dari koleksi terbaik dataset, berisi poster, skor, genre, dan sinopsis
+6. **Top Rated Anime** — Tabel 5 anime dengan skor tertinggi
+7. **AI Quick Insights** — Baca ringkasan otomatis berisi genre dominan, anime terbaik, dan fakta menarik dari data
+        """)
+
+    with st.expander("📊 Analytics — Analisis Data Mendalam"):
+        st.markdown("""
+**Fungsi:** Analitik mendalam dengan berbagai visualisasi distribusi skor, genre, popularitas, dan korelasi antar variabel.
+
+**Langkah Penggunaan:**
+1. **Anime Score Distribution** — Histogram di sisi kiri menampilkan sebaran skor anime (1–10). Semakin tinggi batang, semakin banyak anime dengan skor tersebut
+2. **Top Anime by Score** — Tabel 10 anime dengan skor rata-rata tertinggi berdasarkan dataset
+3. **Top Genres** — Bar chart horizontal 15 genre paling banyak muncul. Satu anime bisa memiliki lebih dari satu genre
+4. **Score Distribution (Box)** — Box plot menampilkan median, kuartil bawah/atas, dan outlier distribusi skor
+5. **Anime Popularity vs Score** — Scatter plot hubungan antara jumlah member (popularitas) dan skor anime. Sumbu X menggunakan skala logaritmik
+6. **Correlation Heatmap** — Menampilkan korelasi antar variabel numerik (Score, Members, Favorites, Popularity, Rank). Warna merah = korelasi positif kuat, biru = negatif kuat
+7. **Top Studios** — Bar chart studio dengan jumlah produksi anime terbanyak
+8. **Most Popular Anime** — Anime dengan jumlah member terbanyak di MyAnimeList
+        """)
+
+    with st.expander("🌐 Anime Explorer — Jelajahi & Filter Anime"):
+        st.markdown("""
+**Fungsi:** Galeri anime interaktif dengan filter multi-dimensi untuk menemukan anime sesuai preferensi.
+
+**Langkah Penggunaan:**
+1. **Cari Anime Spesifik** — Gunakan dropdown **Search Anime** untuk mencari berdasarkan nama
+2. **Filter Genre** — Pilih genre dari dropdown kedua (contoh: Action, Romance, Fantasy). Pilih "All Genres" untuk menampilkan semua
+3. **Filter Tipe** — Pilih tipe anime dari dropdown ketiga: TV, Movie, OVA, ONA, Special, atau Music. Pilih "All Types" untuk semua
+4. **Filter Skor Minimum** — Geser slider **Minimum Score** untuk menyaring anime dengan skor minimal tertentu
+5. **Simpan ke Favorites** — Klik tombol **❤️ Add to Favorites** pada kartu poster untuk menyimpan anime ke koleksimu
+6. **Lihat Anime Gallery** — Galeri poster anime hasil filter, ditampilkan dalam grid 4 kolom
+7. **Trending Anime** — Anime dengan pertumbuhan popularitas tertinggi berdasarkan jumlah member
+8. **Top Studios** — Studio dengan jumlah anime terbanyak dari hasil filter saat ini
+9. **Anime Catalog** — Tabel lengkap semua anime sesuai filter. Klik header kolom untuk mengurutkan data
+        """)
+
+    with st.expander("👥 User Analytics — Analisis Komunitas Pengguna"):
+        st.markdown("""
+**Fungsi:** Menampilkan analitik tentang komunitas pengguna platform MyAnimeList.
+
+**Langkah Penggunaan:**
+1. **Gender Distribution** — Pie chart menampilkan persebaran gender (Male/Female/Non-Binary) dari seluruh pengguna dalam dataset
+2. **Top Countries** — Bar chart 10 negara dengan jumlah pengguna terbanyak di platform
+3. **Age Distribution** — Histogram sebaran usia pengguna berdasarkan tanggal lahir yang terdaftar
+4. **Most Rated Anime** — Anime yang paling banyak mendapat rating dari komunitas pengguna
+5. **Top Active Users** — Tabel 10 pengguna yang paling banyak memberikan rating anime
+
+> ℹ️ Data yang ditampilkan berasal dari dataset `users-details-2023.csv` yang diunduh otomatis saat pertama kali menjalankan dashboard.
+        """)
+
+    with st.expander("🎯 Recommendations — Sistem Rekomendasi Anime"):
+        st.markdown("""
+**Fungsi:** Memberikan rekomendasi anime yang dipersonalisasi berdasarkan kemiripan pola rating pengguna (Collaborative Filtering).
+
+**Langkah Penggunaan:**
+1. **Pilih Anime** — Pilih anime dari dropdown di bagian atas halaman sebagai referensi rekomendasi
+2. **Lihat Detail** — Detail anime yang dipilih akan muncul beserta poster, skor, genre, tipe, dan sinopsisnya
+3. **Lihat Rekomendasi** — 10 anime paling mirip ditampilkan dalam kartu poster beserta **persentase kemiripannya** (0–100%)
+4. **Simpan Rekomendasi** — Klik ikon ❤️ pada kartu untuk menyimpan anime rekomendasi ke halaman Favorites
+5. **Cek Similarity Details** — Tabel di bawah menampilkan data lengkap termasuk nilai similarity, skor, genre, dan tipe untuk setiap rekomendasi
+6. **Peringatan Insufficient Data** — Jika anime tidak memiliki cukup data rating (< 20 pengguna), sistem akan menampilkan peringatan dan rekomendasi tidak tersedia
+        """)
+
+    with st.expander("🧠 AI Insights — Wawasan & Tren Otomatis"):
+        st.markdown("""
+**Fungsi:** Menampilkan ringkasan otomatis tren anime, prediksi popularitas, dan analisis mendalam berbasis data.
+
+**Langkah Penggunaan:**
+1. **AI Summary** — Baca ringkasan otomatis di sebelah kiri: genre dominan, anime dengan skor tertinggi, rata-rata skor, dan pola popularitas terkini
+2. **Genre Popularity Trend** — Bar chart perbandingan total member per genre untuk memahami genre mana yang paling banyak diminati komunitas
+3. **Genre Dominance** — Pie chart proporsi masing-masing genre dalam keseluruhan dataset
+4. **Studio Analysis** — Studio dengan rata-rata skor tertinggi dari semua anime yang diproduksi
+5. **Potential Future Hits** — Tabel anime dengan skor tinggi namun popularitas (jumlah member) masih rendah — berpotensi menjadi hits di masa depan
+6. **Strategic Insights** — Kesimpulan strategis dari analisis data: peluang genre, studio unggulan, dan rekomendasi konten
+        """)
+
+    with st.expander("❤️ Favorites — Koleksi Anime Favorit"):
+        st.markdown("""
+**Fungsi:** Menampilkan semua anime yang telah disimpan selama sesi berlangsung.
+
+**Langkah Penggunaan:**
+1. **Lihat Koleksi** — Semua anime yang kamu simpan ditampilkan dalam grid kartu poster
+2. **Tambah dari Explorer** — Pergi ke **Anime Explorer**, filter atau cari anime, lalu klik **❤️ Add to Favorites** pada kartu yang diinginkan
+3. **Tambah dari Recommendations** — Pergi ke **Recommendations**, pilih anime referensi, lalu klik ❤️ pada kartu rekomendasi
+4. **Hapus Favorit** — Klik tombol **💔 Remove Favorite** untuk menghapus anime dari koleksi
+
+> ⚠️ **Catatan Penting:** Data favorit akan hilang saat halaman di-refresh karena disimpan sementara menggunakan Streamlit session state. Fitur ini tidak menyimpan data secara permanen.
+        """)
+
+    with st.expander("⚙️ Settings — Pengaturan Dashboard"):
+        st.markdown("""
+**Fungsi:** Mengatur tampilan dan preferensi dashboard.
+
+**Fitur yang Tersedia:**
+1. **Theme Mode** — Toggle antara tema **Dark** (gelap) dan **Light** (terang). Bisa juga diubah langsung dari tombol di sidebar
+2. **Primary Color** — Pilih warna utama dashboard (Purple, Blue, Pink, Green)
+3. **Card Style** — Pilih gaya kartu (Glassmorphism, Flat, Bordered)
+4. **Reset Settings** — Tombol untuk mengembalikan semua pengaturan ke default
+        """)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ===== ALGORITMA =====
-    st.markdown('<div class="section-title">🤖 Logika Algoritma Rekomendasi</div>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Cara kerja sistem rekomendasi di balik dashboard ini.</p>', unsafe_allow_html=True)
-    with st.expander("🔍 Klik untuk membaca penjelasan algoritma"):
+    st.markdown('<div class="section-title">🤖 Logika Algoritma</div>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Penjelasan teknis cara kerja sistem di balik dashboard ini.</p>', unsafe_allow_html=True)
+
+    with st.expander("🎯 4.1 Sistem Rekomendasi: Collaborative Filtering"):
         st.markdown("""
-**Sistem rekomendasi menggunakan Item-Based Collaborative Filtering dengan Cosine Similarity:**
+Sistem rekomendasi menggunakan pendekatan **Collaborative Filtering berbasis item (Item-Based Collaborative Filtering)** dengan algoritma **Cosine Similarity**.
 
-**1. Pengumpulan Data Rating**
-Hanya anime yang dirating minimal 20 pengguna yang diikutsertakan untuk menghindari cold-start problem.
+---
 
-**2. User-Item Matrix**
-Data rating diubah menjadi matriks: baris = anime, kolom = pengguna, nilai = rating (kosong diisi 0).
+**Tahap 1: Pengumpulan dan Pembersihan Data Rating**
 
-**3. Cosine Similarity**
-Mengukur kemiripan antar anime berdasarkan pola rating. Nilai 0 = tidak mirip, 1 = identik.
-Formula: `similarity(A,B) = (A·B) / (||A|| × ||B||)`
+Data rating diambil dari file `users-score-small.csv` yang berisi tiga kolom utama: `user_id`, `anime_id`, dan `rating`. Sebelum diproses, data disaring:
+- Hanya anime yang telah dirating oleh **minimal 20 pengguna** yang diikutsertakan
+- Ini dilakukan untuk menghindari **cold-start problem** dan memastikan kualitas rekomendasi
 
-**4. Proses Rekomendasi**
-Sistem mencari 10 anime dengan nilai similarity tertinggi terhadap anime yang dipilih pengguna.
+```python
+count_per_anime = rating_data['anime_id'].value_counts()
+popular = count_per_anime[count_per_anime >= 20].index
+rating_data = rating_data[rating_data['anime_id'].isin(popular)]
+```
+
+---
+
+**Tahap 2: Pembangunan User-Item Matrix**
+
+Data rating yang telah disaring diubah menjadi sebuah pivot table (matriks) dengan:
+- **Baris (Index):** `anime_id` — setiap baris mewakili satu anime
+- **Kolom:** `user_id` — setiap kolom mewakili satu pengguna
+- **Nilai:** rating yang diberikan pengguna terhadap anime tersebut
+- **Nilai kosong (NaN):** diisi dengan 0 (pengguna belum menonton/merating anime tersebut)
+
+---
+
+**Tahap 3: Perhitungan Cosine Similarity**
+
+Cosine Similarity mengukur tingkat kemiripan antar anime berdasarkan pola rating. Dua anime dianggap mirip jika pengguna yang menyukai satu anime cenderung juga menyukai anime lainnya.
+
+**Formula:**
+```
+similarity(A, B) = (A · B) / (||A|| × ||B||)
+
+Dimana:
+  A, B  = vektor rating dua anime yang berbeda
+  A · B = dot product (perkalian titik) kedua vektor
+  ||A|| = magnitude (panjang) vektor A
+
+Nilai hasil: 0.0 (tidak mirip sama sekali) hingga 1.0 (identik)
+```
+
+---
+
+**Tahap 4: Penyimpanan Matriks Similarity**
+
+Hasil perhitungan disimpan dalam DataFrame simetris berukuran N × N. Matriks ini di-cache menggunakan `@st.cache_data` agar tidak dihitung ulang setiap kali halaman di-refresh.
+
+---
+
+**Tahap 5: Proses Rekomendasi**
+
+Ketika pengguna memilih anime di halaman Recommendations, sistem:
+1. Mencari `anime_id` dari anime yang dipilih
+2. Mengambil satu baris dari matriks similarity yang sesuai
+3. Mengurutkan nilai similarity dari yang tertinggi ke terendah
+4. Mengambil 10 anime teratas (mengecualikan anime itu sendiri)
+5. Mencocokkan `anime_id` hasil dengan informasi lengkap dari `df_anime`
+6. Menampilkan rekomendasi dalam kartu poster dengan persentase similarity
+        """)
+
+    with st.expander("🧹 4.2 Pengolahan dan Pembersihan Data"):
+        st.markdown("""
+**Penanganan Nilai UNKNOWN pada Kolom Score**
+
+Dataset anime mengandung nilai teks `"UNKNOWN"` pada kolom Score untuk anime yang belum mendapatkan cukup rating. Ditangani dengan cara:
+- Menghitung rata-rata skor dari seluruh anime yang memiliki skor valid (numerik)
+- Mengganti semua nilai `"UNKNOWN"` dengan rata-rata tersebut
+- Mengkonversi kolom Score menjadi tipe data float
+
+```python
+scores = df_anime[df_anime['Score'] != 'UNKNOWN']['Score'].astype(float)
+mean_score = round(scores.mean(), 2)
+df_anime['Score'] = df_anime['Score'].replace('UNKNOWN', mean_score).astype(float)
+```
+
+---
+
+**Penanganan Kolom Numerik Lainnya**
+
+Untuk kolom seperti `Members` dan `Favorites` yang dapat mengandung nilai non-numerik, digunakan `pd.to_numeric()` dengan parameter `errors='coerce'` yang mengubah nilai tidak valid menjadi NaN sebelum dilakukan perhitungan agregasi.
+        """)
+
+    with st.expander("🔍 4.3 Logika Filter pada Anime Explorer"):
+        st.markdown("""
+Halaman Anime Explorer menerapkan **filter berantai (chained filtering)** sebagai berikut:
+
+1. Mulai dengan salinan lengkap `df_anime`
+2. Jika pengguna memilih nama anime dari dropdown → filter hanya menampilkan anime tersebut
+3. Jika genre dipilih (bukan 'All Genres') → filter menggunakan `str.contains()` pada kolom Genres
+4. Jika tipe dipilih (bukan 'All Types') → filter exact match pada kolom Type
+5. Filter skor minimum menggunakan perbandingan numerik
+6. Hasil akhir diurutkan berdasarkan pilihan pengguna (Members, Score, atau Name)
+        """)
+
+    with st.expander("🎨 4.4 Sistem Tema (Dark/Light Mode)"):
+        st.markdown("""
+Tema dashboard dikontrol melalui **session state** (`st.session_state.dark_mode`). Setiap kali halaman dirender ulang, variabel warna CSS ditetapkan secara dinamis berdasarkan nilai boolean ini, kemudian disuntikkan ke dalam halaman menggunakan `st.markdown()` dengan `unsafe_allow_html=True`.
+
+| Variabel | Dark Mode | Light Mode |
+|----------|-----------|------------|
+| bg_main | #0f172a | #f1f5f9 |
+| text_primary | white | #0f172a |
+| text_secondary | #94a3b8 | #475569 |
+| kpi_bg | #131c31 | #ffffff |
+
+Elemen hero banner (judul dan subjudul) **selalu menggunakan warna putih** agar tetap terbaca di atas background gambar, terlepas dari mode tema yang aktif.
         """)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ===== TROUBLESHOOTING =====
     st.markdown('<div class="section-title">🔧 Troubleshooting</div>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Solusi untuk masalah yang mungkin ditemui.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#a78bfa; font-size:12.5px; margin-top:-8px;">Solusi untuk masalah umum yang mungkin ditemui.</p>', unsafe_allow_html=True)
 
     troubles = [
-        ("Dataset tidak ditemukan", "Pastikan `anime-dataset-2023.csv` dan `users-score-small.csv` ada di folder yang sama dengan file `.py`"),
-        ("Rekomendasi tidak muncul", "Pilih anime yang lebih populer — anime dengan kurang dari 20 rating tidak masuk sistem rekomendasi"),
-        ("Gambar poster tidak muncul", "Normal untuk beberapa anime — gambar diambil dari URL di dataset yang mungkin sudah tidak aktif"),
-        ("Dashboard lambat saat startup", "Tunggu hingga selesai — matriks similarity sedang dibangun. Setelah itu navigasi cepat berkat caching"),
-        ("users-details-2023.csv tidak ada", "File diunduh otomatis dari Google Drive saat pertama dijalankan. Pastikan koneksi internet aktif"),
+        ("Dataset tidak ditemukan",
+         "Pastikan `anime-dataset-2023.csv` dan `users-score-small.csv` ada di folder yang sama dengan file `.py`. Jika menggunakan Streamlit Cloud, pastikan file CSV sudah di-upload atau dapat diakses via URL."),
+        ("users-details-2023.csv tidak ada",
+         "File akan diunduh **otomatis dari Google Drive** saat pertama kali dijalankan. Pastikan koneksi internet aktif. Jika link expired, unduh manual dan letakkan di folder project."),
+        ("Rekomendasi tidak muncul",
+         "Pilih anime yang lebih populer. Anime dengan kurang dari 20 rating tidak masuk sistem rekomendasi untuk menjaga kualitas hasil."),
+        ("Gambar poster tidak muncul",
+         "Normal untuk beberapa anime. Gambar diambil langsung dari URL di dataset yang mungkin sudah tidak aktif atau berubah."),
+        ("Dashboard sangat lambat saat startup",
+         "Tunggu hingga proses selesai — matriks similarity (N×N) sedang dibangun saat pertama kali. Setelah itu semua navigasi akan cepat berkat `@st.cache_data`."),
+        ("Teks di input box tidak terbaca",
+         "Ini terjadi jika tema tidak terdeteksi dengan benar. Coba toggle Dark/Light Mode dari sidebar, atau refresh halaman."),
     ]
 
     for problem, solution in troubles:
