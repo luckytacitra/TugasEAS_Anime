@@ -359,11 +359,11 @@ def show_topnav():
 
     # 2 kolom: kiri kosong, kanan isi
     # 2 kolom: kiri kosong, kanan isi
-    col_left, col_right = st.columns([6, 1.5])
+    col_left, col_right = st.columns([5, 2.5])
     with col_left:
         pass
     with col_right:
-        sub1, sub2 = st.columns([1, 3], gap="small")
+        sub1, sub2 = st.columns([1.2, 2.8], gap="small")
         with sub1:
             if st.button(moon_icon, key="theme_toggle", help="Toggle Dark/Light Theme", use_container_width=True):
                 st.session_state.dark_mode = not st.session_state.dark_mode
@@ -372,19 +372,29 @@ def show_topnav():
             st.markdown("""
             <style>
             div[data-testid="column"]:nth-of-type(2) div[data-testid="column"]:nth-of-type(1) button {
-                background: rgba(255,255,255,0.06) !important;
-                border: 1px solid rgba(255,255,255,0.08) !important;
-                border-radius: 50% !important;
-                width: 40px !important;
-                height: 40px !important;
-                font-size: 18px !important;
-                padding: 0 !important;
-                color: #e2e8f0 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                min-width: 40px !important;
-            }
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 50% !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+    max-width: 48px !important;
+
+    min-height: 48px !important;
+    max-height: 48px !important;
+
+    flex: 0 0 48px !important;
+
+    font-size: 18px !important;
+    padding: 0 !important;
+    color: #e2e8f0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
             div[data-testid="column"]:nth-of-type(2) div[data-testid="column"]:nth-of-type(1) button:hover {
                 background: rgba(255,255,255,0.12) !important;
             }
